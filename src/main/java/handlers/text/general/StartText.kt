@@ -1,6 +1,7 @@
 package handlers.text.general
 
 import handlers.text.TextHandler
+import handlers.update
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 
 class StartText : TextHandler {
@@ -10,6 +11,6 @@ class StartText : TextHandler {
 
             Список доступных команд: /help
             
-        """.trimIndent()))
+        """.trimIndent()).setReplyToMessageId(update.message.messageId))
     }
 }

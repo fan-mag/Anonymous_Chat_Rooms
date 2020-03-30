@@ -28,7 +28,7 @@ class JoinText : TextHandler {
                                                      Текущее количество участников: ${room.persons.size}
                                                      Максимальное количество участников: ${room.capacity}
                                                      Ваше имя в данной комнате: ${person.currentName}
-                                                 """.trimIndent())
+                                                 """.trimIndent()).setReplyToMessageId(update.message.messageId)
         )
     }
 }

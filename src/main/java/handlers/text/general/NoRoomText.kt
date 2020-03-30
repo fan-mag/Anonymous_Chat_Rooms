@@ -1,5 +1,6 @@
-package handlers.text
+package handlers.text.general
 
+import handlers.text.TextHandler
 import handlers.update
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 
