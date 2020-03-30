@@ -1,5 +1,7 @@
-package handlers.text
+package handlers.text.general
 
+import handlers.text.TextHandler
+import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import properties.RoomProperty.MAX_ROOM_CAPACITY
@@ -15,7 +17,9 @@ class StatsText : TextHandler {
             sb1.append(" [$i] | $totalRooms | $totalPersons\n")
         }
         return listOf(
-            SendMessage().setText(sb1.toString())
+                SendMessage()
+                        .setText(sb1.toString())
+                        .setReplyToMessageId(update.message.messageId)
         )
     }
 }

@@ -2,10 +2,12 @@ package handlers.text
 
 import handlers.text.Texts.System.CHAT_ROOM
 import handlers.text.Texts.System.NO_ROOM
-import handlers.text.general.EmptyText
+import handlers.text.chat.AloneRoomText
+import handlers.text.chat.ChatRoomText
 import handlers.text.general.HelpText
 import handlers.text.general.NoRoomText
 import handlers.text.general.StartText
+import handlers.text.general.StatsText
 import handlers.text.join.InRoomJoinText
 import handlers.text.join.IncorrectJoinText
 import handlers.text.join.JoinText
@@ -31,9 +33,9 @@ class Texts {
     enum class System(val handler: TextHandler) {
         INCORRECT_JOIN(IncorrectJoinText()),
         IN_ROOM_JOIN(InRoomJoinText()),
-        EMPTY(EmptyText()),
         OUT_ROOM_LEAVE(OutRoomLeaveText()),
         CHAT_ROOM(ChatRoomText()),
+        ALONE_ROOM(AloneRoomText()),
         NO_ROOM(NoRoomText());
     }
 
