@@ -1,12 +1,12 @@
 package handlers.text
 
 import executors.AnonymousRoomsRunner.Companion.sendBroadcastMessage
+import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Update
 
 class ChatRoomText : TextHandler {
-    override fun handle(update: Update): List<SendMessage> {
+    override fun handle(): List<SendMessage> {
         val person = space.person(update.message.from)
         val text = update.message.text
         person.room.log("${person.currentName}: $text")

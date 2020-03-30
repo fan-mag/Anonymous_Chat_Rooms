@@ -2,12 +2,12 @@ package handlers.text
 
 import executors.AnonymousRoomsRunner.Companion.sendBroadcastMessage
 import executors.StateSaver.saveState
+import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Update
 
 class LeaveText : TextHandler {
-    override fun handle(update: Update): List<SendMessage> {
+    override fun handle(): List<SendMessage> {
         val person = space.person(update.message.from)
         return if (person.hasChat) {
             val room = person.room

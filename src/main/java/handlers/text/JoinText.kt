@@ -2,15 +2,15 @@ package handlers.text
 
 import executors.AnonymousRoomsRunner.Companion.sendBroadcastMessage
 import executors.StateSaver.saveState
+import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Update
 import properties.RoomProperty.MAX_ROOM_CAPACITY
 import properties.RoomProperty.MIN_ROOM_CAPACITY
 
 class JoinText : TextHandler {
 
-    override fun handle(update: Update): List<SendMessage> {
+    override fun handle(): List<SendMessage> {
         val person = space.person(update.message.from)
         try {
             val capacity = update.message.text.replaceFirst("/join ", "").split(" ").first().toInt()

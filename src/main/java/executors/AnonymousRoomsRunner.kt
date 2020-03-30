@@ -11,17 +11,18 @@ import org.telegram.telegrambots.meta.api.objects.Update
 import properties.ApiEndpointsProperty
 
 class AnonymousRoomsRunner : TelegramLongPollingBot() {
-    val botName = "Anonymous Chat Rooms"
+    private val botName = "Anonymous Chat Rooms"
 
     override fun onUpdateReceived(update: Update) {
-        if (update.message.hasText()) {
-            HandlerRouter.handleTextUpdate(update).forEach {
+        handlers.update = update
+        if (handlers.update.message.hasText()) {
+            HandlerRouter.handleTextUpdate().forEach {
                 it.chatId = "${update.message.chatId}"
                 execute(it)
             }
         }
-        if (update.message.hasPhoto()) {
-            HandlerRouter.handlePhotoUpdate(update).forEach {
+        if (handlers.update.message.hasPhoto()) {
+            HandlerRouter.handlePhotoUpdate().forEach {
                 it.chatId = "${update.message.chatId}"
                 execute(it)
             }

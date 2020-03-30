@@ -1,8 +1,8 @@
 package handlers.text
 
+import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Update
 
 enum class Texts(private val format: String, private val handler: TextHandler) {
     START("/start", StartText()),
@@ -18,13 +18,13 @@ enum class Texts(private val format: String, private val handler: TextHandler) {
 
 
     companion object {
-        fun handle(update: Update): List<SendMessage> {
+        fun handle(): List<SendMessage> {
             val message = update.message
             val command = values().find { message.text.toLowerCase().startsWith(it.format) }
-            return command?.handler?.handle(update)
+            return command?.handler?.handle()
                     ?: if (space.person(message.from).hasChat)
-                        CHAT_ROOM.handler.handle(update)
-                    else NO_ROOM.handler.handle(update)
+                        CHAT_ROOM.handler.handle()
+                    else NO_ROOM.handler.handle()
         }
     }
 

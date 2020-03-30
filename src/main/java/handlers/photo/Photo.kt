@@ -1,8 +1,8 @@
 package handlers.photo
 
+import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Update
 
 enum class Photo(private val handler: PhotoHandler) {
 
@@ -11,12 +11,12 @@ enum class Photo(private val handler: PhotoHandler) {
     CHAT_ROOM(ChatRoomPhoto());
 
     companion object {
-        fun handle(update: Update): List<SendMessage> {
+        fun handle(): List<SendMessage> {
             val person = space.person(update.message.from)
             return if (person.hasChat) {
-                if (person.room.persons.size == 1) ALONE.handler.handle(update)
-                else CHAT_ROOM.handler.handle(update)
-            } else NO_ROOM.handler.handle(update)
+                if (person.room.persons.size == 1) ALONE.handler.handle()
+                else CHAT_ROOM.handler.handle()
+            } else NO_ROOM.handler.handle()
         }
     }
 }

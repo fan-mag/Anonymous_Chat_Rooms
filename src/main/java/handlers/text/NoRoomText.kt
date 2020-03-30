@@ -1,11 +1,11 @@
 package handlers.text
 
+import handlers.update
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Update
 
 class NoRoomText : TextHandler {
 
-    override fun handle(update: Update): List<SendMessage> {
+    override fun handle(): List<SendMessage> {
         return listOf(
                 SendMessage()
                         .setReplyToMessageId(update.message.messageId)

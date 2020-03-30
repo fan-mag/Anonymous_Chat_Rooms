@@ -1,13 +1,13 @@
 package handlers.photo
 
 import executors.AnonymousRoomsRunner
+import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto
-import org.telegram.telegrambots.meta.api.objects.Update
 
 class ChatRoomPhoto : PhotoHandler {
-    override fun handle(update: Update): List<SendMessage> {
+    override fun handle(): List<SendMessage> {
         val person = space.person(update.message.from)
         val photoId = update.message.photo.last().fileId
         var caption = update.message.caption
