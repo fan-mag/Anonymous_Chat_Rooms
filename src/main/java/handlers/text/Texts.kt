@@ -1,20 +1,26 @@
 package handlers.text
 
+import handlers.text.join.InRoomJoinText
+import handlers.text.join.IncorrectJoinText
+import handlers.text.join.JoinText
 import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
+import properties.Property.STUB_TEXT
 
-enum class Texts(private val format: String, private val handler: TextHandler) {
+enum class Texts(private val format: String, val handler: TextHandler) {
     START("/start", StartText()),
     HELP("/help", HelpText()),
     JOIN("/join ", JoinText()),
+    INCORRECT_JOIN(STUB_TEXT, IncorrectJoinText()),
+    IN_ROOM_JOIN(STUB_TEXT, InRoomJoinText()),
+
     LEAVE("/leave", LeaveText()),
     STATS("/stats", StatsText()),
 
     ROOM("/room", RoomText()),
     CHAT_ROOM("/chatroom", ChatRoomText()),
-    NO_ROOM("/noroom", NoRoomText()),
-    DEFAULT("DEFAULT", DefaultText());
+    NO_ROOM(STUB_TEXT, NoRoomText());
 
 
     companion object {
