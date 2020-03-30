@@ -13,7 +13,7 @@ class ChatRoomSticker: StickerHandler {
         val sticker = update.message.sticker.fileId
         person.room.log("${person.currentName}: STICKER $sticker")
         broadcast(
-                message = SendMessage().setText("${person.currentName} стикер"),
+                message = SendMessage().setText("${person.currentName} прислал(а) стикер"),
                 persons = person.room.getOtherPersons(person)
         )
         broadcast(
