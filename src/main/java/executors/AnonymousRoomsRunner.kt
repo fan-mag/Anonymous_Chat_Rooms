@@ -51,14 +51,14 @@ class AnonymousRoomsRunner : TelegramLongPollingBot() {
             TelegramBotsApi().registerBot(instance).start()
         }
 
-        fun sendBroadcastMessage(message: SendMessage, persons: List<Person>) {
+        fun broadcast(message: SendMessage, persons: List<Person>) {
             persons.forEach {
                 message.chatId = "${it.user.id}"
                 instance.execute(message)
             }
         }
 
-        fun sendBroadcastPhoto(photo: SendPhoto, persons: List<Person>) {
+        fun broadcast(photo: SendPhoto, persons: List<Person>) {
             persons.forEach {
                 photo.chatId = "${it.user.id}"
                 instance.execute(photo)

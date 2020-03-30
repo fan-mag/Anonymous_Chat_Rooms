@@ -13,7 +13,7 @@ class ChatRoomPhoto : PhotoHandler {
         var caption = update.message.caption
         if (caption.isNullOrEmpty()) caption = ""
         person.room.log("${person.currentName}: PHOTO $photoId")
-        AnonymousRoomsRunner.sendBroadcastPhoto(
+        AnonymousRoomsRunner.broadcast(
                 photo = SendPhoto().setPhoto(photoId).setCaption("${person.currentName}: $caption"),
                 persons = person.room.getOtherPersons(person)
         )

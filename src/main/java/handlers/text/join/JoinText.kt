@@ -1,7 +1,6 @@
 package handlers.text.join
 
-import executors.AnonymousRoomsRunner.Companion.sendBroadcastMessage
-import executors.StateSaver.saveState
+import executors.AnonymousRoomsRunner.Companion.broadcast
 import handlers.text.TextHandler
 import handlers.text.Texts
 import handlers.text.Texts.INCORRECT_JOIN
@@ -23,11 +22,7 @@ class JoinText : TextHandler {
         val capacity = argument.toInt()
         val room = space.availableRoom(capacity)
         if (!room.addPerson(person)) return Texts.IN_ROOM_JOIN.handler.handle()
-        sendBroadcastMessage(
-                SendMessage().setText("В комнату входит ${person.currentName}"), room.getOtherPersons(person)
-        )
-        room.log("JOIN user ${person.userToString()} as ${person.currentName}")
-        saveState()
+        broadcast(SendMessage().setText("В комнату входит ${person.currentName}"), room.getOtherPersons(person))
         return listOf(SendMessage().setText("""
                                                      Вы вошли в комнату ${room.hashCode()}.
                                                      Текущее количество участников: ${room.persons.size}
@@ -36,6 +31,4 @@ class JoinText : TextHandler {
                                                  """.trimIndent())
         )
     }
-
-
 }

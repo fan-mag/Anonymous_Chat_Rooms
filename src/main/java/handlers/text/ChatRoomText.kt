@@ -1,6 +1,6 @@
 package handlers.text
 
-import executors.AnonymousRoomsRunner.Companion.sendBroadcastMessage
+import executors.AnonymousRoomsRunner.Companion.broadcast
 import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
@@ -10,7 +10,7 @@ class ChatRoomText : TextHandler {
         val person = space.person(update.message.from)
         val text = update.message.text
         person.room.log("${person.currentName}: $text")
-        sendBroadcastMessage(
+        broadcast(
                 message = SendMessage().setText("${person.currentName}: $text"),
                 persons = person.room.getOtherPersons(person)
         )

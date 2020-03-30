@@ -3,6 +3,8 @@ package handlers.text
 import handlers.text.join.InRoomJoinText
 import handlers.text.join.IncorrectJoinText
 import handlers.text.join.JoinText
+import handlers.text.leave.LeaveText
+import handlers.text.leave.OutRoomLeaveText
 import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
@@ -16,6 +18,7 @@ enum class Texts(private val format: String, val handler: TextHandler) {
     IN_ROOM_JOIN(STUB_TEXT, InRoomJoinText()),
 
     LEAVE("/leave", LeaveText()),
+    OUT_ROOM_LEAVE(STUB_TEXT, OutRoomLeaveText()),
     STATS("/stats", StatsText()),
 
     ROOM("/room", RoomText()),

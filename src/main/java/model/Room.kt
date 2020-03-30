@@ -1,5 +1,6 @@
 package model
 
+import executors.StateSaver.saveState
 import org.json.JSONArray
 import org.json.JSONObject
 import properties.StateLocation.ROOMS_LOG
@@ -27,6 +28,8 @@ class Room(val capacity: Int) : Jsonnable {
         person.hasChat = true
         if (person.currentName == "Безымянный")
             person.currentName = getAvailableCurrentName()
+        saveState()
+        log("JOIN user ${person.userToString()} as ${person.currentName}")
         return true
     }
 
@@ -34,6 +37,13 @@ class Room(val capacity: Int) : Jsonnable {
         persons.remove(person)
         person.hasChat = false
         person.currentName = "Безымянный"
+        log("LEFT user ${person.userToString()} as ${person.currentName}")
+        saveState()
+        if (isEmpty()) {
+            log("CLOSE room")
+            space.rooms.remove(this)
+            saveState()
+        }
     }
 
     fun getOtherPersons(except: Person): List<Person> {
