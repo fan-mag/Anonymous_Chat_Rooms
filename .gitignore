@@ -1,0 +1,9 @@
+# .idea
+/.idea/
+
+# target
+/target/
+
+# resources
+/anonymouschatrooms.iml
+/src/main/resources/
