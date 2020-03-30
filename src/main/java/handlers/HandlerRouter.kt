@@ -1,5 +1,6 @@
 package handlers
 
+import handlers.photo.Photo
 import handlers.text.Texts
 import model.Person
 import model.space
@@ -8,13 +9,13 @@ import org.telegram.telegrambots.meta.api.objects.Update
 
 object HandlerRouter {
 
-    fun handleUpdate(update: Update): List<SendMessage> {
+    fun handleTextUpdate(update: Update): List<SendMessage> {
         space.addPerson(Person(update.message.from))
+        return Texts.handle(update)
+    }
 
-
-        if (update.message.hasText()) return Texts.handle(update)
-        if (update.message.hasAnimation()) return emptyList()
-        if (update.message.hasAudio()) return emptyList()
-        return listOf(SendMessage().setText("Не знаю, как с этим работать"))
+    fun handlePhotoUpdate(update: Update): List<SendMessage> {
+        space.addPerson(Person(update.message.from))
+        return Photo.handle(update)
     }
 }

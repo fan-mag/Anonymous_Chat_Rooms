@@ -1,8 +1,7 @@
 package handlers.text
 
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import org.telegram.telegrambots.meta.api.objects.Update
+import handlers.Handler
 
-internal interface TextHandler {
-    fun handle(update: Update): List<SendMessage>
+internal interface TextHandler: Handler {
+
 }
