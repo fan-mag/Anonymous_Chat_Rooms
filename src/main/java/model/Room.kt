@@ -12,12 +12,14 @@ class Room(val capacity: Int) : Jsonnable {
 
 
     val persons = ArrayList<Person>()
+    var hashcode: Int = 0
 
     val available: Boolean
         get() = persons.size < capacity
 
     init {
         space.rooms.add(this)
+        hashcode = Random().nextInt()
     }
 
 
@@ -61,11 +63,15 @@ class Room(val capacity: Int) : Jsonnable {
         println("${Date()} - ${this.hashCode()} - $textToLog")
     }
 
-    fun isEmpty(): Boolean {
+    private fun isEmpty(): Boolean {
         return persons.isEmpty()
     }
 
     override fun toJson(): String {
-        return JSONObject().put("capacity", capacity).put("persons", JSONArray(persons.map { it.toJson() })).toString()
+        return JSONObject().put("capacity", capacity).put("persons", JSONArray(persons.map { it.toJson() })).put("hashCode", hashCode()).toString()
+    }
+
+    override fun hashCode(): Int {
+        return hashcode
     }
 }

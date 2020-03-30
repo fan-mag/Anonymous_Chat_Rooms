@@ -41,7 +41,7 @@ object StateSaver {
             roomsArray.forEach {
                 val roomJson = JSONObject(it as String)
                 val room = Room(roomJson.getInt("capacity"))
-
+                room.hashcode = roomJson.getInt("hashCode")
                 roomJson.getJSONArray("persons").forEach {
                     val personJson = JSONObject(it as String)
                     val person = space.persons.first { it.user.id == personJson.getJSONObject("user").getInt("id") }
