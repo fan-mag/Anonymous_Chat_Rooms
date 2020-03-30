@@ -7,6 +7,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.meta.TelegramBotsApi
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto
+import org.telegram.telegrambots.meta.api.methods.send.SendSticker
 import org.telegram.telegrambots.meta.api.objects.Update
 import properties.ApiEndpointsProperty
 
@@ -23,6 +24,12 @@ class AnonymousRoomsRunner : TelegramLongPollingBot() {
         }
         if (handlers.update.message.hasPhoto()) {
             HandlerRouter.handlePhotoUpdate().forEach {
+                it.chatId = "${update.message.chatId}"
+                execute(it)
+            }
+        }
+        if (handlers.update.message.hasSticker()) {
+            HandlerRouter.handleStickerUpdate().forEach {
                 it.chatId = "${update.message.chatId}"
                 execute(it)
             }
@@ -62,6 +69,13 @@ class AnonymousRoomsRunner : TelegramLongPollingBot() {
             persons.forEach {
                 photo.chatId = "${it.user.id}"
                 instance.execute(photo)
+            }
+        }
+
+        fun broadcast(sticker: SendSticker, persons: List<Person>) {
+            persons.forEach {
+                sticker.chatId = "${it.user.id}"
+                instance.execute(sticker)
             }
         }
     }

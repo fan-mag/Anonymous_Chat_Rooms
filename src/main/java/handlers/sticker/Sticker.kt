@@ -1,4 +1,4 @@
-package handlers.photo
+package handlers.sticker
 
 import handlers.Handler
 import handlers.text.chat.AloneRoomText
@@ -7,11 +7,11 @@ import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 
-enum class Photo(private val handler: Handler) {
+enum class Sticker(private val handler: Handler) {
 
     ALONE(AloneRoomText()),
     NO_ROOM(NoRoomText()),
-    CHAT_ROOM(ChatRoomPhoto());
+    CHAT_ROOM(ChatRoomSticker());
 
     companion object {
         fun handle(): List<SendMessage> {

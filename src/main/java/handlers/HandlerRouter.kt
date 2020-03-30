@@ -1,6 +1,7 @@
 package handlers
 
 import handlers.photo.Photo
+import handlers.sticker.Sticker
 import handlers.text.Texts
 import model.Person
 import model.space
@@ -16,5 +17,10 @@ object HandlerRouter {
     fun handlePhotoUpdate(): List<SendMessage> {
         space.addPerson(Person(update.message.from))
         return Photo.handle()
+    }
+
+    fun handleStickerUpdate(): List<SendMessage> {
+        space.addPerson(Person(update.message.from))
+        return Sticker.handle()
     }
 }
