@@ -2,7 +2,7 @@ package handlers.text.leave
 
 import executors.AnonymousRoomsRunner.Companion.broadcast
 import handlers.text.TextHandler
-import handlers.text.Texts.OUT_ROOM_LEAVE
+import handlers.text.Texts.System.OUT_ROOM_LEAVE
 import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
