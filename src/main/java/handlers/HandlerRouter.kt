@@ -9,18 +9,23 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 
 object HandlerRouter {
 
-    fun handleTextUpdate(): List<SendMessage> {
+    fun handleUpdate(): List<SendMessage> {
         space.addPerson(Person(update.message.from))
-        return Texts.handle()
+        val replies = ArrayList<SendMessage>()
+
+        if (update.message.hasText())
+            replies.addAll(Texts.handle())
+
+        if (update.message.hasPhoto())
+            replies.addAll(Photo.handle())
+
+        if (update.message.hasSticker())
+            replies.addAll(Sticker.handle())
+
+        return replies
     }
 
-    fun handlePhotoUpdate(): List<SendMessage> {
-        space.addPerson(Person(update.message.from))
-        return Photo.handle()
-    }
-
-    fun handleStickerUpdate(): List<SendMessage> {
-        space.addPerson(Person(update.message.from))
-        return Sticker.handle()
+    fun routeTo(stub: Texts.System): List<SendMessage> {
+        return stub.handler.handle()
     }
 }

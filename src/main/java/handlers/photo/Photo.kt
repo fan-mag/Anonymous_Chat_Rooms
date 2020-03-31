@@ -1,25 +1,24 @@
 package handlers.photo
 
 import handlers.Handler
-import handlers.text.chat.AloneRoomText
-import handlers.text.general.NoRoomText
+import handlers.HandlerRouter.routeTo
+import handlers.text.Texts.System.ALONE_ROOM
+import handlers.text.Texts.System.NO_ROOM
 import handlers.update
 import model.space
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 
 enum class Photo(private val handler: Handler) {
 
-    ALONE(AloneRoomText()),
-    NO_ROOM(NoRoomText()),
     CHAT_ROOM(ChatRoomPhoto());
 
     companion object {
         fun handle(): List<SendMessage> {
             val person = space.person(update.message.from)
             return if (person.hasChat) {
-                if (person.room.persons.size == 1) ALONE.handler.handle()
+                if (person.room.persons.size == 1) routeTo(ALONE_ROOM)
                 else CHAT_ROOM.handler.handle()
-            } else NO_ROOM.handler.handle()
+            } else routeTo(NO_ROOM)
         }
     }
 }

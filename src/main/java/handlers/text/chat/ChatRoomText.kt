@@ -1,6 +1,7 @@
 package handlers.text.chat
 
 import executors.AnonymousRoomsRunner.Companion.broadcast
+import handlers.HandlerRouter.routeTo
 import handlers.text.TextHandler
 import handlers.text.Texts.System.ALONE_ROOM
 import handlers.update
@@ -11,7 +12,7 @@ class ChatRoomText : TextHandler {
     override fun handle(): List<SendMessage> {
         val person = space.person(update.message.from)
         val text = update.message.text
-        if (person.room.persons.size == 1) return ALONE_ROOM.handler.handle()
+        if (person.room.persons.size == 1) return routeTo(ALONE_ROOM)
         person.room.log("${person.currentName}: $text")
 
         broadcast(

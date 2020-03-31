@@ -16,23 +16,9 @@ class AnonymousRoomsRunner : TelegramLongPollingBot() {
 
     override fun onUpdateReceived(update: Update) {
         handlers.update = update
-        if (handlers.update.message.hasText()) {
-            HandlerRouter.handleTextUpdate().forEach {
-                it.chatId = "${update.message.chatId}"
-                execute(it)
-            }
-        }
-        if (handlers.update.message.hasPhoto()) {
-            HandlerRouter.handlePhotoUpdate().forEach {
-                it.chatId = "${update.message.chatId}"
-                execute(it)
-            }
-        }
-        if (handlers.update.message.hasSticker()) {
-            HandlerRouter.handleStickerUpdate().forEach {
-                it.chatId = "${update.message.chatId}"
-                execute(it)
-            }
+        HandlerRouter.handleUpdate().forEach {
+            it.chatId = "${update.message.chatId}"
+            execute(it)
         }
     }
 
